@@ -1,0 +1,12 @@
+llama-stack-client
+requests
+python-dotenv
+openai 
+langchain_nvidia_ai_endpoints
+langchain-pinecone
+pinecone-client
+sentence-transformers
+langchain_huggingface
+streamlit
+langchain-openai
+Pillow
