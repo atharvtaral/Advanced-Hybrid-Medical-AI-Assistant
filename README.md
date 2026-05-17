@@ -10,6 +10,9 @@ The system is architected to optimize infrastructure costs, response latency, an
 
 ---
 
+## Output Image:
+
+
 ## 🔥 Key Technical Features
 
 ### 1. Dynamic Hybrid Model Routing & Cost Optimization
