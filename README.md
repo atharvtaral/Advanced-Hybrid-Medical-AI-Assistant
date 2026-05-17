@@ -48,6 +48,21 @@ The system is architected to optimize infrastructure costs, response latency, an
 
 ---
 
+## 🌐 Future Scope & Responsible AI Roadmap
+
+### 1. Multi-Lingual Regional Expansion & Inclusive Design
+* **Regional Routing Pipelines:** Architecting the hybrid execution tree to support other major Indian regional languages (e.g., Hindi, Tamil, Telugu, Kannada, Bengali) ensuring the application serves diverse regional demographics across different territories.
+* **Colloquial Dialect Mapping:** Integrating localized medical terminologies and symptom descriptions into the Pinecone Serverless knowledge graph to resolve colloquial language nuances.
+
+### 2. Multi-Modal Voice Architecture (Accessibility Framework)
+* **Voice-to-Voice Pipelines:** Integrating automated audio transcription models and high-fidelity text-to-speech engines to make the system accessible to elderly or low-literacy users who prefer native verbal inputs over smartphone text entry.
+
+### 3. Responsible AI & Strict Clinical Guardrails
+* **Deterministic Verification Layers:** Enforcing strict verification rules to programmatically cross-reference vision-extracted prescription text with updated national pharmacology databases before delivering responses.
+* **Data Anonymization Pipelines:** Implementing secure, temporary memory pipelines to instantly flush and anonymize user-uploaded prescription images, ensuring zero data leakage in line with healthcare privacy practices.
+
+---
+
 ## ⚡ Production Deployment & Local Setup
 
 ### 1. Environment Configuration
