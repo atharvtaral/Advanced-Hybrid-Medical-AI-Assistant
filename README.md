@@ -11,7 +11,7 @@ The system is architected to optimize infrastructure costs, response latency, an
 ---
 
 ## Output Image:
-
+<img src="OutputImage.PNG" width="600" alt="Application Output">
 
 ## 🔥 Key Technical Features
 
