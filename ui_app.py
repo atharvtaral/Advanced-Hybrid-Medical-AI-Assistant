@@ -65,7 +65,7 @@ def init_models():
     from langchain_huggingface import HuggingFaceEmbeddings
     #from pinecone import Pinecone, ServerlessSpec  # ServerlessSpec जोडल
     from pinecone import Pinecone
-    from pinecone.data.index.serverless_spec import ServerlessSpecा
+    from pinecone.data.index.serverless_spec import ServerlessSpec
     from langchain_pinecone import PineconeVectorStore
     
     # Llama 3.1 Model (Nvidia)
