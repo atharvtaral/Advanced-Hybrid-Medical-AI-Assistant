@@ -58,19 +58,14 @@ if uploaded_file:
     st.sidebar.success("Prescription uploaded successfully! ✅")
 
 # 5. Initialize Models (Cached for Speed - Now it has added auto-index creation)
+# ====================================================================
+# 🎯 5. Initialize Models (Cached for Speed - Clean Pinecone Fix)
+# ====================================================================
 @st.cache_resource
 def init_models():
-    # 🎯 जादूचा जुगाड: पाइनकोन इम्पोर्ट करण्यापूर्वी सिस्टीममधील जुना प्लगइनचा कचरा साफ करणे
-    import sys
-    if "pinecone-plugin-inference" in sys.modules:
-        del sys.modules["pinecone-plugin-inference"]
-        
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
     from langchain_openai import ChatOpenAI
     from langchain_huggingface import HuggingFaceEmbeddings
-    
-    # आता सुरक्षितपणे पाइनकोनचे इम्पोर्ट्स करा
-    from pinecone import Pinecone, ServerlessSpec
     from langchain_pinecone import PineconeVectorStore
     
     # Llama 3.1 Model (Nvidia)
@@ -91,37 +86,23 @@ def init_models():
     # Embeddings Setup
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     
-    # Pinecone Index Check & Create Logic (हा पार्ट सुटला होता म्हणून 404 आला)
-    pc = Pinecone(api_key=pinecone_api_key)
     index_name = "medical-chatbot-hf-index"
     
-    if index_name not in pc.list_indexes().names():
-        pc.create_index(
-            name=index_name,
-            dimension=384,
-            metric="cosine",
-            spec=ServerlessSpec(cloud="aws", region="us-east-1")
+    # 🎯 नवीन बदल: डायरेक्ट 'langchain_pinecone' चा वापर करून इंडेक्स जोडणे.
+    # यामुळे 'from pinecone import Pinecone' करायची गरज पडत नाही आणि तो जुना एरर येतच नाही.
+    try:
+        vector_store = PineconeVectorStore(
+            index_name=index_name, 
+            embedding=embeddings, 
+            pinecone_api_key=pinecone_api_key
         )
-        
-        # If this is the first time an index is being created, upload temporary medical data to it.
-        medical_knowledge = [
-            "For high fever in children or elderly patients, always use a lukewarm water sponge bath to lower the temperature safely. Never use ice-cold or very cold water, as it causes severe shivering and can increase the core body temperature dangerously.",
-            "A throbbing headache accompanied by sensitivity to light and sound is a classic sign of a Migraine. Relief can be achieved by resting in a dark, quiet room and staying hydrated.",
-            "A productive cough with yellowish mucus and high fever in older adults suggests a potential lung infection or Pneumonia. Immediate medical consultation is required."
-        ]
-        # Initializing the index by uploading data for the first time
-        vector_store = PineconeVectorStore.from_texts(
-            texts=medical_knowledge,
-            embedding=embeddings,
-            index_name=index_name
-        )
-    else:
-        # Adding a direct connection if the index already exists
-        vector_store = PineconeVectorStore(index_name=index_name, embedding=embeddings)
+    except Exception as e:
+        st.error(f"Pinecone Connection Error: {e}")
+        st.stop()
         
     retriever = vector_store.as_retriever(search_kwargs={"k": 2})
     
-    return llama_llm, openai_llm, retriever 
+    return llama_llm, openai_llm, retriever
 
 # To initialize the model outside of the function:
 llama_llm, openai_llm, retriver = init_models()
