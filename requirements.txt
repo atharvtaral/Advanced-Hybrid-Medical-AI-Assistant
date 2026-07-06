@@ -5,4 +5,4 @@ langchain-core
 langchain-nvidia-ai-endpoints
 langchain-openai
 langchain-huggingface
-langchain-pinecone
+langchain-community
