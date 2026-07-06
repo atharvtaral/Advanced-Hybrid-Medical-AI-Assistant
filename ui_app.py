@@ -59,10 +59,14 @@ if uploaded_file:
 
 # 5. Initialize Models (Cached for Speed - Now it has added auto-index creation)
 # ====================================================================
-# 🎯 5. Initialize Models (Cached for Speed - Clean Pinecone Fix)
+# 🎯 5. Initialize Models (Cached for Speed - Core System Patch)
 # ====================================================================
 @st.cache_resource
 def init_models():
+    # 🌟 ब्रह्मास्त्र जुगाड: 'langchain_pinecone' लोड होण्यापूर्वीच जुन्या प्लगइनला सिस्टीममधून पूर्णपणे हाकलून देणे
+    import sys
+    sys.modules["pinecone-plugin-inference"] = None  # सक्तीने डिसेबल केले
+    
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
     from langchain_openai import ChatOpenAI
     from langchain_huggingface import HuggingFaceEmbeddings
@@ -88,8 +92,6 @@ def init_models():
     
     index_name = "medical-chatbot-hf-index"
     
-    # 🎯 नवीन बदल: डायरेक्ट 'langchain_pinecone' चा वापर करून इंडेक्स जोडणे.
-    # यामुळे 'from pinecone import Pinecone' करायची गरज पडत नाही आणि तो जुना एरर येतच नाही.
     try:
         vector_store = PineconeVectorStore(
             index_name=index_name, 
