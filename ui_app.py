@@ -60,13 +60,17 @@ if uploaded_file:
 # 5. Initialize Models (Cached for Speed - Now it has added auto-index creation)
 @st.cache_resource
 def init_models():
+    # 🎯 जादूचा जुगाड: पाइनकोन इम्पोर्ट करण्यापूर्वी सिस्टीममधील जुना प्लगइनचा कचरा साफ करणे
+    import sys
+    if "pinecone-plugin-inference" in sys.modules:
+        del sys.modules["pinecone-plugin-inference"]
+        
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
     from langchain_openai import ChatOpenAI
     from langchain_huggingface import HuggingFaceEmbeddings
-    #from pinecone import Pinecone, ServerlessSpec  # ServerlessSpec जोडल
-    from pinecone import Pinecone
-# 🎯 हा सर्वात स्टेबल आणि जुन्या-नवीन दोन्ही व्हर्जन्सला चालणारा पाथ आहे:
-    from pinecone import ServerlessSpec
+    
+    # आता सुरक्षितपणे पाइनकोनचे इम्पोर्ट्स करा
+    from pinecone import Pinecone, ServerlessSpec
     from langchain_pinecone import PineconeVectorStore
     
     # Llama 3.1 Model (Nvidia)
