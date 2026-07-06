@@ -65,7 +65,8 @@ def init_models():
     from langchain_huggingface import HuggingFaceEmbeddings
     #from pinecone import Pinecone, ServerlessSpec  # ServerlessSpec जोडल
     from pinecone import Pinecone
-    from pinecone.data.index.serverless_spec import ServerlessSpec
+# 🎯 हा सर्वात स्टेबल आणि जुन्या-नवीन दोन्ही व्हर्जन्सला चालणारा पाथ आहे:
+    from pinecone import ServerlessSpec
     from langchain_pinecone import PineconeVectorStore
     
     # Llama 3.1 Model (Nvidia)
