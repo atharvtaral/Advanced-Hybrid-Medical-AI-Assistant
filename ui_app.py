@@ -63,14 +63,11 @@ if uploaded_file:
 # ====================================================================
 @st.cache_resource
 def init_models():
-    # 🌟 ब्रह्मास्त्र जुगाड: 'langchain_pinecone' लोड होण्यापूर्वीच जुन्या प्लगइनला सिस्टीममधून पूर्णपणे हाकलून देणे
-    import sys
-    sys.modules["pinecone-plugin-inference"] = None  # सक्तीने डिसेबल केले
-    
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
     from langchain_openai import ChatOpenAI
     from langchain_huggingface import HuggingFaceEmbeddings
-    from langchain_pinecone import PineconeVectorStore
+    # 🎯 नवीन बदल: एरर देणाऱ्या 'langchain_pinecone' ऐवजी स्टेबल 'langchain_community' वापरणे
+    from langchain_community.vectorstores import Pinecone as CommunityPinecone
     
     # Llama 3.1 Model (Nvidia)
     llama_llm = ChatNVIDIA(
@@ -93,13 +90,14 @@ def init_models():
     index_name = "medical-chatbot-hf-index"
     
     try:
-        vector_store = PineconeVectorStore(
-            index_name=index_name, 
-            embedding=embeddings, 
+        # direct connection using community client
+        vector_store = CommunityPinecone.from_existing_index(
+            index_name=index_name,
+            embedding=embeddings,
             pinecone_api_key=pinecone_api_key
         )
     except Exception as e:
-        st.error(f"Pinecone Connection Error: {e}")
+        st.error(f"Pinecone Community Connection Error: {e}")
         st.stop()
         
     retriever = vector_store.as_retriever(search_kwargs={"k": 2})
