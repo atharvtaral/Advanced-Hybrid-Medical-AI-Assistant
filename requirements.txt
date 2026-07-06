@@ -4,7 +4,7 @@ python-dotenv
 openai 
 langchain_nvidia_ai_endpoints
 langchain-pinecone
-pinecone-client
+pinecone-client==5.0.1
 sentence-transformers
 langchain_huggingface
 streamlit
