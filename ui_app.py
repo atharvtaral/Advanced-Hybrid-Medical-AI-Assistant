@@ -10,7 +10,7 @@ st.set_page_config(page_title="Advanced Hybrid Medical AI", page_icon="🩺", la
 # st.caption("Llama 3.1 8B (Nvidia NIM) + GPT-4o-mini (OpenAI) + Pinecone Cloud DB")
 
 try:
-    banner_image = Image.open(r"C:\Users\Shree\Music\Open AI Project\llama nvidia core\medicalbanner.png")
+    banner_image = Image.open(r"medicalbanner.png")
     # It is best to use columns to fit images in layout=centered
     col1, col2 = st.columns([1, 10]) # 1 part blank, 10 parts image
     with col1:
