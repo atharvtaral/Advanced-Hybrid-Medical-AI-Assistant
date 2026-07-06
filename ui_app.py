@@ -24,9 +24,15 @@ st.write("---")
 
 # 2. Load Environment Variables
 load_dotenv()
-nvidia_api_key = os.getenv("NVIDIA_API_KEY")
-pinecone_api_key = os.getenv("PINECONE_API_KEY")
-openai_api_key = os.getenv("OPENAI_API_KEY")
+
+# १. आधी Streamlit Secrets (Cloud) चेक करा, जर तिथे नसतील तर लोकल .env मधून घ्या
+nvidia_api_key = st.secrets.get("NVIDIA_API_KEY") or os.getenv("NVIDIA_API_KEY")
+pinecone_api_key = st.secrets.get("PINECONE_API_KEY") or os.getenv("PINECONE_API_KEY")
+openai_api_key = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+
+if not all([nvidia_api_key, pinecone_api_key, openai_api_key]):
+    st.error("Error: One or more API Keys (NVIDIA, PINECONE, OPENAI) are missing! Please check Streamlit Secrets or .env file.")
+    st.stop()
 
 if not all([nvidia_api_key, pinecone_api_key, openai_api_key]):
     st.error("Error: One or more API Keys (NVIDIA, PINECONE, OPENAI) are missing in .env!")
