@@ -63,7 +63,9 @@ def init_models():
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
     from langchain_openai import ChatOpenAI
     from langchain_huggingface import HuggingFaceEmbeddings
-    from pinecone import Pinecone, ServerlessSpec  # ServerlessSpec जोडला
+    #from pinecone import Pinecone, ServerlessSpec  # ServerlessSpec जोडल
+    from pinecone import Pinecone
+    from pinecone.data.index.serverless_spec import ServerlessSpecा
     from langchain_pinecone import PineconeVectorStore
     
     # Llama 3.1 Model (Nvidia)
