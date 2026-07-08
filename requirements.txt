@@ -5,4 +5,5 @@ langchain-core
 langchain-nvidia-ai-endpoints
 langchain-openai
 langchain-huggingface
-langchain-community
+pinecone-client==6.0.0
+langchain-pinecone==0.2.13
