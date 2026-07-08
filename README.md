@@ -10,8 +10,13 @@ The system is architected to optimize infrastructure costs, response latency, an
 
 ---
 
-## Output Image:
-<img src="OutputImage.PNG" width="600" alt="Application Output">
+## 🚀 Live Demo
+
+You can interact with the live deployment of this project directly in your browser:
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://advanced-hybrid-medical-ai-assistant-1232.streamlit.app/)
+
+👉 **[Click here to open the application](https://advanced-hybrid-medical-ai-assistant-1232.streamlit.app/)**
 
 ## 🔥 Key Technical Features
 
