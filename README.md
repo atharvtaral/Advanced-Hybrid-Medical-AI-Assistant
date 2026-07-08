@@ -18,25 +18,28 @@ You can interact with the live deployment of this project directly in your brows
 
 👉 **[Click here to open the application](https://advanced-hybrid-medical-ai-assistant-1232.streamlit.app/)**
 
+---
+
 ## 🔥 Key Technical Features
 
 ### 1. Dynamic Hybrid Model Routing & Cost Optimization
-
 - **Contextual Routing:** Implemented dynamic execution trees via **LCEL**. English conversational inputs bypass commercial endpoints to run on high-performance infrastructure via **NVIDIA NIM** utilizing `meta/llama-3.1-8b-instruct`.
 - **Advanced Cross-Lingual Nuance:** Automatically routes Marathi requests to OpenAI's `gpt-4o-mini`, resolving tokenization inefficiencies and preserving medical vocabulary syntax structures in regional semantics.
 
 ### 2. Multi-Modal Vision Processing Pipeline
-
 - **Pillow Buffer Serialization:** Mitigated stream exceptions from non-standard desktop crop utilities (`image/x-png` format mutations) by implementing a strict **RGB-JPEG re-rendering engine** via `PIL.Image` and `io.BytesIO`.
 - **Zero-Shot Clinical Classification:** Configured localized contextual prompts allowing the vision model to decipher non-standard Latin medical shorthand conventions (such as `G.`/`Gtt.` indicating _Guttae_ eye drops) to extract complex brand identities like _Azopt_, _Combigan_, and _Xalatan_.
 
 ### 3. Enterprise Cloud-Native RAG Pipeline
-
 - **Deterministic Guardrails:** Prevented stochastically generated hallucinations by restricting domain response space strictly to an isolated knowledge corpus.
 - **Vector Store Architecture:** Managed document embedding vectors through **Pinecone Serverless Vector Databases** synced using local HuggingFace feature-extraction pipelines (`all-MiniLM-L6-v2` generating **384-dimensional dense tensors** matching cosine similarity profiles).
 
-### 4. Stateful Session Memory Framework
+### 4. Adversarial Robustness & Prompt Injection Security 🛡️
+- **Jailbreak & Prompt Injection Mitigation:** Engineered advanced orchestration-level guardrails to proactively detect and neutralize hostile prompt injections, adversarial roleplay exploits, and unauthorized bypass attempts.
+- **System Prompt Integrity:** Hardened the instruction layer against payload splitting and leak attacks, ensuring core operational guidelines and system-level secrets remain strictly confidential.
+- **Strict Scope Enforcement (Goal Hijacking Defense):** Implemented contextual verification blocks to reject cross-domain switches (e.g., instructions attempting to convert the medical assistant into non-medical utilities), keeping execution safely bound to clinical parameters.
 
+### 5. Stateful Session Memory Framework
 - **Thread Isolation:** Wrapped active prompt chains inside a state-aware **RunnableWithMessageHistory** block.
 - **Streamlit Core Lifecycle Sync:** Bound temporary conversational historical states to Streamlit's structural execution stack via `st.session_state.chat_store`, ensuring transactional execution memory retention across asymmetric layout re-renders.
 
@@ -78,4 +81,3 @@ Create a `.env` file within the root directory of your workspace:
 NVIDIA_API_KEY="nvapi-your-secure-nvidia-nim-token"
 PINECONE_API_KEY="your-serverless-pinecone-cloud-token"
 OPENAI_API_KEY="sk-proj-your-commercial-openai-token"
-```
