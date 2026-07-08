@@ -57,17 +57,16 @@ prescription_text = ""
 if uploaded_file:
     st.sidebar.success("Prescription uploaded successfully! ✅")
 
-# 5. Initialize Models (Cached for Speed - Now it has added auto-index creation)
 # ====================================================================
-# 🎯 5. Initialize Models (Cached for Speed - Core System Patch)
+# 🎯 5. Initialize Models (Version 6.0.0 Fixed Setup)
 # ====================================================================
 @st.cache_resource
 def init_models():
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
     from langchain_openai import ChatOpenAI
     from langchain_huggingface import HuggingFaceEmbeddings
-    # 🎯 नवीन बदल: एरर देणाऱ्या 'langchain_pinecone' ऐवजी स्टेबल 'langchain_community' वापरणे
-    from langchain_community.vectorstores import Pinecone as CommunityPinecone
+    from pinecone import Pinecone
+    from langchain_pinecone import PineconeVectorStore
     
     # Llama 3.1 Model (Nvidia)
     llama_llm = ChatNVIDIA(
@@ -89,16 +88,8 @@ def init_models():
     
     index_name = "medical-chatbot-hf-index"
     
-    try:
-        # direct connection using community client
-        vector_store = CommunityPinecone.from_existing_index(
-            index_name=index_name,
-            embedding=embeddings,
-            pinecone_api_key=pinecone_api_key
-        )
-    except Exception as e:
-        st.error(f"Pinecone Community Connection Error: {e}")
-        st.stop()
+    # थेट कनेक्शन (तुझ्या पीसीसारखं)
+    vector_store = PineconeVectorStore(index_name=index_name, embedding=embeddings)
         
     retriever = vector_store.as_retriever(search_kwargs={"k": 2})
     
