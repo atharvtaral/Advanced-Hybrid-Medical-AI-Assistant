@@ -47,8 +47,8 @@ You can interact with the live deployment of this project directly in your brows
 
 ## 🛠️ Production Tech Stack
 
-- **Core Framework:** Python 3.11+, LangChain Core, LCEL (LangChain Expression Language)
-- **Orchestration & UI:** Streamlit (Stateful Session Cache Ecosystem)
+- **Core Framework:** Python 3.11+, LangChain Core, LCEL 
+- **Orchestration & UI:** Streamlit 
 - **Vector Database:** Pinecone Cloud (Serverless Architecture)
 - **Models Utilized:** Meta Llama 3.1 8B (NVIDIA NIM Engine), OpenAI GPT-4o-mini (Text + Vision API)
 - **Embeddings Configuration:** HuggingFace Transformers (`all-MiniLM-L6-v2`)
