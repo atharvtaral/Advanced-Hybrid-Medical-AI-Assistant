@@ -34,9 +34,6 @@ if not all([nvidia_api_key, pinecone_api_key, openai_api_key]):
     st.error("Error: One or more API Keys (NVIDIA, PINECONE, OPENAI) are missing! Please check Streamlit Secrets or .env file.")
     st.stop()
 
-if not all([nvidia_api_key, pinecone_api_key, openai_api_key]):
-    st.error("Error: One or more API Keys (NVIDIA, PINECONE, OPENAI) are missing in .env!")
-    st.stop()
 
 # 3. Streamlit Session State (Memory Management)
 if "chat_store" not in st.session_state:
