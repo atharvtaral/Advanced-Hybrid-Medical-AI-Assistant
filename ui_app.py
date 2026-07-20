@@ -65,7 +65,7 @@ def init_models():
     from pinecone import Pinecone
     from langchain_pinecone import PineconeVectorStore
     
-    # Llama 3.1 Model (Nvidia)
+    # 1. Llama 3.1 Model (Nvidia)
     llama_llm = ChatNVIDIA(
         model="meta/llama-3.1-8b-instruct",
         api_key=nvidia_api_key.strip(),
@@ -73,20 +73,26 @@ def init_models():
         max_completion_tokens=500
     )
     
-    # GPT-4o-mini Model (OpenAI)
+    # 2. GPT-4o-mini Model (OpenAI)
     openai_llm = ChatOpenAI(
         model="gpt-4o-mini",
         api_key=openai_api_key.strip(),
         temperature=0.3
     )
     
-    # Embeddings Setup
+    # 3. Embeddings Setup
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     
     index_name = "medical-chatbot-hf-index"
     
-    # थेट कनेक्शन (तुझ्या पीसीसारखं)
-    vector_store = PineconeVectorStore(index_name=index_name, embedding=embeddings)
+    # 4. Pinecone Connection (Fix for API Key & Client)
+    pc = Pinecone(api_key=pinecone_api_key.strip())
+    
+    vector_store = PineconeVectorStore(
+        index_name=index_name, 
+        embedding=embeddings,
+        pinecone_api_key=pinecone_api_key.strip()
+    )
         
     retriever = vector_store.as_retriever(search_kwargs={"k": 2})
     
