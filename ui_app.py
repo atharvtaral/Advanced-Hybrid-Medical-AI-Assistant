@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import streamlit as st
 from PIL import Image
+import chromadb
 
 # 1. Page Configuration
 st.set_page_config(page_title="Advanced Hybrid Medical AI", page_icon="🩺", layout="centered")
