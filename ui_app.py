@@ -62,8 +62,7 @@ def init_models():
     from langchain_nvidia_ai_endpoints import ChatNVIDIA
     from langchain_openai import ChatOpenAI
     from langchain_huggingface import HuggingFaceEmbeddings
-    from pinecone import Pinecone
-    from langchain_pinecone import PineconeVectorStore
+    from langchain_community.vectorstores import Chroma
     
     # 1. Llama 3.1 Model (Nvidia)
     llama_llm = ChatNVIDIA(
@@ -83,21 +82,17 @@ def init_models():
     # 3. Embeddings Setup
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     
-    index_name = "medical-chatbot-hf-index"
-    
-    # 4. Pinecone Connection (Fix for API Key & Client)
-    pc = Pinecone(api_key=pinecone_api_key.strip())
-    
-    vector_store = PineconeVectorStore(
-        index_name=index_name, 
-        embedding=embeddings,
-        pinecone_api_key=pinecone_api_key.strip()
+    # 4. ChromaDB Vector Store Integration
+    # जर तू लोकल डायरेक्टरीमध्ये डेटा सेव्ह केला असेल तर persist_directory चा पाथ दे, 
+    # नाहीतर हा इन-मेमरी व्हिक्टर डेटाबेस म्हणून चालेल.
+    vector_store = Chroma(
+        persist_directory="./chroma_db",  # तुमच्या chroma_db फोल्डरचा पाथ
+        embedding_function=embeddings
     )
         
     retriever = vector_store.as_retriever(search_kwargs={"k": 2})
     
     return llama_llm, openai_llm, retriever
-
 # To initialize the model outside of the function:
 llama_llm, openai_llm, retriver = init_models()
 
